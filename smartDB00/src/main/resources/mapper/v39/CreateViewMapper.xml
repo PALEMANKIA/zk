@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smart.smartDB00.dao.v39.CreateViewMapper">
+    <select id="getTableByLikeName" resultType="String">
+        select TABLE_NAME from USER_TABLES WHERE TABLE_NAME LIKE '%' || #{tableName} || '%'
+    </select>
+
+    <select id="getTableExistStatus" resultType="Integer">
+        select count(1) from USER_TABLES where TABLE_NAME = #{tableName}
+    </select>
+
+    <delete id="dropView" parameterType="String">
+        drop view ${tableName}
+    </delete>
+
+    <insert id="createTimeIngView">
+        create view smart_timeing_view as
+        <foreach collection="tableNameList" item="tableName" open="select * from (" separator="union all" close=") v ">
+            select smt_rowid "rowNo", smt_personnelid "personId", smt_authno "machineId", smt_dealdatetime "recordTime"
+            from ${tableName}
+        </foreach>
+        order by "rowNo"
+    </insert>
+
+    <select id="getTimeingMonthExistStatus" resultType="Integer">
+        select count(1) from smart_timeing_view where <![CDATA[ "recordTime" >= #{minDate} + 1 ]]>
+    </select>
+
+</mapper>

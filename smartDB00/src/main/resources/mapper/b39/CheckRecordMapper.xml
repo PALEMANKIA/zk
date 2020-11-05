@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smart.smartDB00.dao.b39.CheckRecordMapper">
+    <resultMap id="BaseResultMap" type="com.smart.smartDB00.domain.CheckRecord">
+        <id column="SMT_YSSLXZID" property="id"/>
+        <result column="SMT_YSSLID" property="missingId"/>
+        <result column="SMT_YSSLXZRYID" property="checkPersonId"/>
+        <result column="SMT_YSSLXZZTID" property="checkStatusCode"/>
+        <result column="SMT_YSSLZTID" property="statusCode"/>
+        <result column="SMT_YSSLXZBZ" property="remark"/>
+        <result column="SMT_YSSLXZSJ" property="checkDate"/>
+    </resultMap>
+    <resultMap id="ResultDtoMap" type="com.smart.smartDB00.dto.CheckRecordDto" extends="BaseResultMap">
+        <result column="checkStatus" property="checkStatus"/>
+        <result column="SMT_YSSLZTMC" property="status"/>
+        <result column="XM" property="checkPersonName"/>
+        <result column="RYH" property="checkPersonNo"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		SMT_YSSLXZID, SMT_YSSLID, SMT_YSSLXZRYID, SMT_YSSLXZZTID, SMT_YSSLZTID, SMT_YSSLXZBZ, SMT_YSSLXZSJ
+	</sql>
+
+    <select id="getNextVal" resultType="Long">
+        select SEQ_SMARTDB004.NEXTVAL FROM DUAL
+    </select>
+
+    <insert id="insertSelective" parameterType="com.smart.smartDB00.domain.CheckRecord">
+        insert into SMARTDB004
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                SMT_YSSLXZID,
+            </if>
+            <if test="missingId != null">
+                SMT_YSSLID,
+            </if>
+            <if test="checkPersonId != null">
+                SMT_YSSLXZRYID,
+            </if>
+            <if test="checkStatusCode != null">
+                SMT_YSSLXZZTID,
+            </if>
+            <if test="statusCode != null">
+                SMT_YSSLZTID,
+            </if>
+            <if test="remark != null">
+                SMT_YSSLXZBZ,
+            </if>
+            <if test="checkDate != null">
+                SMT_YSSLXZSJ,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="missingId != null">
+                #{missingId},
+            </if>
+            <if test="checkPersonId != null">
+                #{checkPersonId},
+            </if>
+            <if test="checkStatusCode != null">
+                #{checkStatusCode},
+            </if>
+            <if test="statusCode != null">
+                #{statusCode},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            <if test="checkDate != null">
+                #{checkDate},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectCheckRecordByMissingId" resultMap="ResultDtoMap">
+        select
+        <include refid="Base_Column_List"/>
+        ,SMARTDB003.SMT_YSSLZTMC "checkStatus"
+        ,JCTB0201.RYH,JCTB0201.XM, ZT.SMT_YSSLZTMC
+        from SMARTDB004
+        left join SMARTDB003
+        on SMARTDB004.SMT_YSSLXZZTID = SMARTDB003.SMT_YSSLZTDM
+        left join SMARTDB003 ZT
+        on SMARTDB004.SMT_YSSLZTID = ZT.SMT_YSSLZTDM
+        left join JCTB0201
+        on SMARTDB004.SMT_YSSLXZRYID = JCTB0201.SMT_RYID
+        where SMT_YSSLID = #{missingId}
+        order by SMT_YSSLXZSJ
+    </select>
+</mapper>

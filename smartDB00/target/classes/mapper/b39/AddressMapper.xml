@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smart.smartDB00.dao.b39.AddressMapper">
+    <resultMap id="BaseResultMap" type="com.smart.smartDB00.domain.Address">
+        <id column="SMT_DLWZDM" property="id" />
+        <result column="SMT_DLWZMC" property="name" />
+        <result column="SMT_DLWZFDM" property="pid" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		SMT_DLWZDM, SMT_DLWZMC,SMT_DLWZFDM
+	</sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from SMART0100C
+    </select>
+
+</mapper>

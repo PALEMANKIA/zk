@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smart.smartDB00.dao.b39.MachineMapper">
+    <resultMap id="BaseResultMap" type="com.smart.smartDB00.domain.Machine">
+        <id column="SMT_ZDZCH" property="id" />
+        <result column="SMT_ZDCCBH" property="machineNo" />
+        <result column="SMT_DLWZDM" property="addressId" />
+        <result column="SMT_ZDLXDM" property="behaviorType" />
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select SMT_ZDZCH, SMT_ZDCCBH, SMT_DLWZDM，SMT_ZDLXDM
+          from SMART0700B
+          left join SMART0700D
+            on SMART0700B.SMT_ZDSBLXDMID  = SMART0700D.SMT_ZDSBLXDMID
+    </select>
+
+</mapper>

@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smart.smartDB00.dao.b39.PersonMissingMapper">
+    <resultMap id="BaseResultMap" type="com.smart.smartDB00.domain.PersonMissing">
+        <id column="SMT_YSSLID" property="id"/>
+        <result column="SMT_YSSLRYID" property="personId"/>
+        <result column="SMT_SLYCCXSK" property="lastTime"/>
+        <result column="SMT_ZHYCCXSK" property="newestTime"/>
+        <result column="SMT_SLYCCXDD" property="lastAddress"/>
+        <result column="SMT_ZHYCCXDD" property="newestAddress"/>
+        <result column="SMT_SLYCGLCGQID" property="lastMachineId"/>
+        <result column="SMT_ZHYCGLCGQID" property="newestMachineId"/>
+        <result column="SMT_SLYCCXXWLXID" property="lastBehaviorTypeCode"/>
+        <result column="SMT_ZHYCCXXWLXID" property="newestBehaviorTypeCode"/>
+        <result column="SMT_SLYCCXXWCZ" property="lastOperation"/>
+        <result column="SMT_ZHYCCXXWCZ" property="newestOperation"/>
+        <result column="SMT_SLYCCXXWJG" property="lastResult"/>
+        <result column="SMT_ZHYCCXXWJG" property="newestResult"/>
+        <result column="SMT_YSSLMQZTID" property="statusCode"/>
+    </resultMap>
+
+    <resultMap id="ResultDtoMap" type="com.smart.smartDB00.dto.PersonMissingDto" extends="BaseResultMap">
+        <result column="i" property="index"/>
+        <result column="RYH" property="personNo"/>
+        <result column="XM" property="name"/>
+        <result column="XBMC" property="sex"/>
+        <result column="DWMC" property="college"/>
+        <result column="BKZKZYMC" property="specialty"/>
+        <result column="SMT_YSSLZTMC" property="status"/>
+        <result column="missingDay" property="missingDay"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        SMT_YSSLID, SMT_YSSLRYID, SMT_SLYCCXSK, SMT_ZHYCCXSK, SMT_SLYCCXDD, SMT_ZHYCCXDD,
+        SMT_SLYCGLCGQID, SMT_ZHYCGLCGQID, SMT_SLYCCXXWLXID, SMT_ZHYCCXXWLXID, SMT_SLYCCXXWCZ,
+        SMT_ZHYCCXXWCZ, SMT_SLYCCXXWJG, SMT_ZHYCCXXWJG, SMT_YSSLMQZTID
+    </sql>
+
+    <select id="getNextVal" resultType="Long">
+        select SEQ_SMARTDB002.NEXTVAL FROM DUAL
+    </select>
+
+    <insert id="insertSelective" parameterType="com.smart.smartDB00.domain.PersonMissing">
+        insert into SMARTDB002
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                SMT_YSSLID,
+            </if>
+            <if test="personId != null">
+                SMT_YSSLRYID,
+            </if>
+            <if test="lastTime != null">
+                SMT_SLYCCXSK,
+            </if>
+            <if test="newestTime != null">
+                SMT_ZHYCCXSK,
+            </if>
+            <if test="lastAddress != null">
+                SMT_SLYCCXDD,
+            </if>
+            <if test="newestAddress != null">
+                SMT_ZHYCCXDD,
+            </if>
+            <if test="lastMachineId != null">
+                SMT_SLYCGLCGQID,
+            </if>
+            <if test="newestMachineId != null">
+                SMT_ZHYCGLCGQID,
+            </if>
+            <if test="lastBehaviorTypeCode != null">
+                SMT_SLYCCXXWLXID,
+            </if>
+            <if test="newestBehaviorTypeCode != null">
+                SMT_ZHYCCXXWLXID,
+            </if>
+            <if test="lastOperation != null">
+                SMT_SLYCCXXWCZ,
+            </if>
+            <if test="newestOperation != null">
+                SMT_ZHYCCXXWCZ,
+            </if>
+            <if test="lastResult != null">
+                SMT_SLYCCXXWJG,
+            </if>
+            <if test="newestResult != null">
+                SMT_ZHYCCXXWJG,
+            </if>
+            <if test="statusCode != null">
+                SMT_YSSLMQZTID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="personId != null">
+                #{personId},
+            </if>
+            <if test="lastTime != null">
+                #{lastTime},
+            </if>
+            <if test="newestTime != null">
+                #{newestTime},
+            </if>
+            <if test="lastAddress != null">
+                #{lastAddress},
+            </if>
+            <if test="newestAddress != null">
+                #{newestAddress},
+            </if>
+            <if test="lastMachineId != null">
+                #{lastMachineId},
+            </if>
+            <if test="newestMachineId != null">
+                #{newestMachineId},
+            </if>
+            <if test="lastBehaviorTypeCode != null">
+                #{lastBehaviorTypeCode},
+            </if>
+            <if test="newestBehaviorTypeCode != null">
+                #{newestBehaviorTypeCode},
+            </if>
+            <if test="lastOperation != null">
+                #{lastOperation},
+            </if>
+            <if test="newestOperation != null">
+                #{newestOperation},
+            </if>
+            <if test="lastResult != null">
+                #{lastResult},
+            </if>
+            <if test="newestResult != null">
+                #{newestResult},
+            </if>
+            <if test="statusCode != null">
+                #{statusCode},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateSelective" parameterType="com.smart.smartDB00.domain.PersonMissing">
+        update SMARTDB002
+        <set>
+            <if test="personId != null">
+                SMT_YSSLRYID = #{personId},
+            </if>
+            <if test="lastTime != null">
+                SMT_SLYCCXSK = #{lastTime},
+            </if>
+            <if test="newestTime != null">
+                SMT_ZHYCCXSK = #{newestTime},
+            </if>
+            <if test="lastAddress != null">
+                SMT_SLYCCXDD = #{lastAddress},
+            </if>
+            <if test="newestAddress != null">
+                SMT_ZHYCCXDD = #{newestAddress},
+            </if>
+            <if test="lastMachineId != null">
+                SMT_SLYCGLCGQID = #{lastMachineId},
+            </if>
+            <if test="newestMachineId != null">
+                SMT_ZHYCGLCGQID = #{newestMachineId},
+            </if>
+            <if test="lastBehaviorTypeCode != null">
+                SMT_SLYCCXXWLXID = #{lastBehaviorTypeCode},
+            </if>
+            <if test="newestBehaviorTypeCode != null">
+                SMT_ZHYCCXXWLXID = #{newestBehaviorTypeCode},
+            </if>
+            <if test="lastOperation != null">
+                SMT_SLYCCXXWCZ = #{lastOperation},
+            </if>
+            <if test="newestOperation != null">
+                SMT_ZHYCCXXWCZ = #{newestOperation},
+            </if>
+            <if test="lastResult != null">
+                SMT_SLYCCXXWJG = #{lastResult},
+            </if>
+            <if test="newestResult != null">
+                SMT_ZHYCCXXWJG = #{newestResult},
+            </if>
+            <if test="statusCode != null">
+                SMT_YSSLMQZTID = #{statusCode},
+            </if>
+        </set>
+        where SMT_YSSLID = #{id}
+    </update>
+
+    <select id="getNullRecordsByMissing" resultType="Long">
+        select personId from
+        <foreach collection="collection" item="personId" open="(" separator="union all" close=") R">
+            select ${personId} personId from dual
+        </foreach>
+        where not exists (select 1 from SMARTDB002 where SMARTDB002.SMT_YSSLRYID = R.personId)
+    </select>
+
+    <select id="getMissingRecordDtoByNullMissing" resultMap="ResultDtoMap">
+        select SMT_YSSLID,i from
+        <foreach collection="collection" item="record" index="index" open="(" separator="union all" close=") R">
+            select ${record.personId} personId,${index} i from dual
+        </foreach>
+        inner join (select SMT_YSSLID,SMT_YSSLRYID from SMARTDB002 where SMT_YSSLMQZTID = 0) SMARTDB002
+        on SMARTDB002.SMT_YSSLRYID = R.personId
+    </select>
+
+    <select id="getMissingRecordIndexsByMissing" resultType="Integer">
+        select i from
+        <foreach collection="collection" item="record" index="index" open="(" separator="union all" close=") R">
+            select ${record.personId} personId,${index} i from dual
+        </foreach>
+        where not exists (select 1 from SMARTDB002 where SMT_YSSLMQZTID in (0,2) and SMARTDB002.SMT_YSSLRYID = personId)
+    </select>
+
+    <select id="getMissingRecordDtoByMissing" resultMap="ResultDtoMap">
+        select SMT_YSSLID,i from
+        <foreach collection="collection" item="record" index="index" open="(" separator="union all" close=") R">
+            select ${record.personId} personId,${index} i from dual
+        </foreach>
+        inner join (select SMT_YSSLID,SMT_YSSLRYID from SMARTDB002 where SMT_YSSLMQZTID in (0,2)) SMARTDB002
+        on SMARTDB002.SMT_YSSLRYID = R.personId
+    </select>
+
+    <resultMap id="GroupNodeMap" type="com.smart.smartDB00.dto.common.GroupNode">
+        <id column="groupId" property="groupId"/>
+        <result column="name" property="name"/>
+        <result column="value" property="value"/>
+    </resultMap>
+
+    <resultMap id="GroupNodeDtoMap" type="com.smart.smartDB00.dto.GroupNodeDto" extends="GroupNodeMap">
+        <result column="missingDay" property="missingDay"/>
+    </resultMap>
+
+    <select id="getCollegeMissingGroup" resultMap="GroupNodeMap">
+        select JCTB0103.DWH "groupId", JCTB0103.DWMC "name", "value"
+        from (select DWH, count(1) "value"
+        from (select SMT_YSSLRYID from SMARTDB002 where SMT_YSSLMQZTID = 2
+        <if test="beginDate != null">
+            AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK >= #{beginDate} ]]>
+        </if>
+        <if test="endDate != null">
+            AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK < #{endDate} + 1 ]]>
+        </if>
+        ) SMARTDB002
+        inner join JCXS0201
+        on SMARTDB002.SMT_YSSLRYID = JCXS0201.SMT_RYID
+        inner join GXJX01
+        on JCXS0201.ZYM = GXJX01.BZKZYM
+        group by DWH) G
+        inner join JCTB0103
+        on G.DWH = JCTB0103.DWH
+    </select>
+
+    <select id="getSpecialtyMissingGroup" resultMap="GroupNodeMap">
+        select GB16835.BKZKZYM "groupId",
+        GB16835.BKZKZYMC "name",
+        "value" from (select ZYM, count(1) "value"
+        from (select SMT_YSSLRYID from SMARTDB002 where SMT_YSSLMQZTID = 2
+        <if test="beginDate != null">
+            AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK >= #{beginDate} ]]>
+        </if>
+        <if test="endDate != null">
+            AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK < #{endDate} + 1 ]]>
+        </if>
+        ) SMARTDB002
+        inner join JCXS0201
+        on SMARTDB002.SMT_YSSLRYID = JCXS0201.SMT_RYID
+        group by ZYM) G
+        inner join GB16835
+        on G.ZYM = GB16835.BKZKZYM
+    </select>
+
+    <select id="getGradeMissingGroup" resultMap="GroupNodeMap">
+        select SZNJ "name", COUNT(1) "value"
+        from (select SMT_YSSLRYID from SMARTDB002 where SMT_YSSLMQZTID = 2
+        <if test="beginDate != null">
+            AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK >= #{beginDate} ]]>
+        </if>
+        <if test="endDate != null">
+            AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK < #{endDate} + 1 ]]>
+        </if>
+        ) SMARTDB002
+        inner join JCXS0201
+        on SMARTDB002.SMT_YSSLRYID = JCXS0201.SMT_RYID
+        group by SZNJ
+    </select>
+
+    <select id="getSexMissingGroup" resultMap="GroupNodeMap">
+        select GB2261_1.XBM "groupId", GB2261_1.XBMC "name", "value"
+        from (select XBM, count(1) "value"
+        from SMARTDB002
+        inner join JCTB0201
+        on SMARTDB002.SMT_YSSLRYID = JCTB0201.SMT_RYID
+        where SMT_YSSLMQZTID = 2
+        <if test="beginDate != null">
+            AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK >= #{beginDate} ]]>
+        </if>
+        <if test="endDate != null">
+            AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK < #{endDate} + 1 ]]>
+        </if>
+        group by XBM) G
+        inner join GB2261_1
+        on G.XBM = GB2261_1.XBM
+    </select>
+
+    <select id="getCollegeMissingDayGroup" resultMap="GroupNodeDtoMap">
+        select JCTB0103.DWH "groupId", JCTB0103.DWMC "name", G.missingDay, G."value"
+        from (select DWH, missingDay, count(1) "value"
+        from (select (case FlOOR(SYSDATE - SMT_SLYCCXSK)
+        when 7 then
+        '7天'
+        when 8 then
+        '8天'
+        when 9 then
+        '9天'
+        else
+        '>10天'
+        end) missingDay,
+        SMT_YSSLRYID
+        from SMARTDB002
+        where SMT_YSSLMQZTID = 2
+        <if test="beginDate != null">
+            AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK >= #{beginDate} ]]>
+        </if>
+        <if test="endDate != null">
+            AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK < #{endDate} + 1 ]]>
+        </if>
+        ) SMARTDB002
+        inner join JCXS0201
+        on SMARTDB002.SMT_YSSLRYID = JCXS0201.SMT_RYID
+        inner join GXJX01
+        on JCXS0201.ZYM = GXJX01.BZKZYM
+        group by DWH, missingDay) G
+        inner join JCTB0103
+        on G.DWH = JCTB0103.DWH
+    </select>
+
+    <select id="selectMissingRecord" resultMap="ResultDtoMap">
+        select SMARTDB002.SMT_YSSLID,
+        JCTB0201.RYH,
+        JCTB0201.XM,
+        GB2261_1.XBMC,
+        JCTB0103.DWMC,
+        GB16835.BKZKZYMC,
+        SMARTDB002.SMT_SLYCCXSK,
+        SMARTDB002.SMT_SLYCCXDD,
+        SMARTDB002.SMT_SLYCCXXWJG,
+        SMARTDB003.SMT_YSSLZTMC,
+        FlOOR(SYSDATE - SMT_SLYCCXSK) missingDay
+        from SMARTDB002
+        left join JCTB0201
+        on SMARTDB002.SMT_YSSLRYID = JCTB0201.SMT_RYID
+        left join GB2261_1
+        on JCTB0201.XBM = GB2261_1.XBM
+        left join JCXS0201
+        on SMARTDB002.SMT_YSSLRYID = JCXS0201.SMT_RYID
+        left join GB16835
+        on JCXS0201.ZYM = GB16835.BKZKZYM
+        left join GXJX01
+        on JCXS0201.ZYM = GXJX01.BZKZYM
+        left join JCTB0103
+        on GXJX01.DWH = JCTB0103.DWH
+        left join SMARTDB003
+        on SMARTDB002.SMT_YSSLMQZTID = SMARTDB003.SMT_YSSLZTDM
+        <where>
+            <if test="collegeCode != null">
+                AND GXJX01.DWH = #{collegeCode}
+            </if>
+            <if test="specialtyCode != null">
+                AND JCXS0201.ZYM = #{specialtyCode}
+            </if>
+            <if test="gradeCode != null">
+                AND JCXS0201.SZNJ = #{gradeCode}
+            </if>
+            <if test="personNo != null">
+                AND JCTB0201.RYH like #{personNo}
+            </if>
+            <if test="beginDate != null">
+                AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK >= #{beginDate} ]]>
+            </if>
+            <if test="endDate != null">
+                AND <![CDATA[ SMARTDB002.SMT_SLYCCXSK <= #{endDate} + 1 ]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="getMissingRecord" resultMap="ResultDtoMap">
+        select SMARTDB002.SMT_YSSLID,
+               JCTB0201.RYH,
+               JCTB0201.XM,
+               GB2261_1.XBMC,
+               JCTB0103.DWMC,
+               GB16835.BKZKZYMC,
+               SMARTDB002.SMT_SLYCCXSK,
+               SMARTDB002.SMT_SLYCCXDD,
+               SMARTDB002.SMT_SLYCCXXWJG,
+               SMARTDB002.SMT_YSSLMQZTID,
+               SMARTDB003.SMT_YSSLZTMC,
+               FlOOR(SYSDATE - SMT_SLYCCXSK) missingDay
+          from SMARTDB002
+          left join JCTB0201
+            on SMARTDB002.SMT_YSSLRYID = SMT_RYID
+          left join GB2261_1
+            on JCTB0201.XBM = GB2261_1.XBM
+          left join JCXS0201
+            on SMARTDB002.SMT_YSSLRYID = JCXS0201.SMT_RYID
+          left join GB16835
+            on JCXS0201.ZYM = GB16835.BKZKZYM
+          left join GXJX01
+            on JCXS0201.ZYM = GXJX01.BZKZYM
+          left join JCTB0103
+            on GXJX01.DWH = JCTB0103.DWH
+          left join SMARTDB003
+            on SMARTDB002.SMT_YSSLMQZTID = SMARTDB003.SMT_YSSLZTDM
+            WHERE SMT_YSSLID = #{id}
+    </select>
+
+    <resultMap id="selectNodeMap" type="com.smart.smartDB00.dto.common.SelectNode">
+        <id column="selectId" property="selectId"/>
+        <result column="selectName" property="selectName"/>
+    </resultMap>
+    <select id="selectCollege" resultMap="selectNodeMap">
+        select DWH "selectId", DWMC "selectName" from JCTB0103
+    </select>
+    <select id="selectSpecialty" resultMap="selectNodeMap">
+        select BKZKZYM "selectId", BKZKZYMC "selectName" from GB16835
+    </select>
+    <select id="selectGrade" resultMap="selectNodeMap">
+        select NJ "selectId", NJ "selectName" from JCTB0104
+    </select>
+</mapper>
